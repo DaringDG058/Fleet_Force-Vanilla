@@ -1,0 +1,70 @@
+Hey, this is the youtube video I was talking about – “https://www.youtube.com/watch?v=ydi3EU9IG34”. I have shot the frames of the things in the video. I want something like this, but not necessarily like this. I’m free for any changes to be made. Try to keep the structure of the table as it is, as I have submitted a copy to my professor. But if there are any necessary changes I’m okay to do it. Give me a plan, if good, then I’ll give you a green signal to give the codes and whether to create the tables and insert suitable values to it. I’ll tell more about the type of data I will be needing for some values in the table. But I want the data which will be inserted as Realistic as possible. With respect to india but the trucks are European. Let’s do this – 
+First is the Screen which comes at opening time, I want this image – 
+Picture1.jpg
+It will be in /images folder as main.jpeg
+To come first and upon scrolling should make it disappears at the same spot and the login page appears, Sign in or Sign up and Username and password and when signed up for the first time, ask about their name and role. And then redirect to the Home Screen.
+The main Home screen should look like this - 
+Picture2.png
+Then the left side menu – Picture3.png
+Then the main top bar - Picture4.png
+Logo of “Fleet Force” in some nice text, a universal search bar and some filters as shown there. Then any notifications of Delivered or any issues in the bell icon and next is the Account info – name and their Role.
+Then Comes the Dashboard option in the left side bar, Picture5.png
+There should a map of india, how can we do it – with an api ? Help me with this.
+
+We will be having 21 Trucks, 19 operating and 2 spare. 7 Volvo FH16’s, 7 Scania R770’s, 3 Mercedes-Benz Actros 4165 SLT and 4 DAF XG+ 660. We will be having 25 Trailers – 8 flatbed trailers (6 operating and 2 spare), 8 DRY Vans (6 operating and 2 spare), 3 refrigerated dry freight trailers (2 operating and 1 spare), 3 tank trailers (2 operating and 1 spare), 1 low boy trailer, 1 car hauler, 1 double trailer.
+We will operate between locations Mangaluru M, Bengaluru B, Mumbai M, Chennai C, Delhi D and Chennai C
+1 Hindusthan Oil factory at M and one warehouse at B using 1 tank trailers for oil going full and coming empty.
+2 Sketchers Shoe Warehouses, one at M and one C using 2 flatbeds for shoe transport 1 going and 1 coming.
+1 Havmor factory at B and 1 warehouse at C using 1 refrigerated for icecream from B to C one way and comes back empty.
+Lohan Fisheries Industry at C and Warehouse in B using 1 refrigerated to transport fish form C to B and comes back empty
+2 Phillips Warehouses, 1 at C and 1 at Mu using 2 Dry ones between C and Mu one going and one coming.
+2 Ekart Warehouses, 1 at B and 1 at D using 2 Dry ones between B and D one going and one coming.
+2 Shiprocket Warehouses, 1 at B and 1 at Mu using 2 Dry ones between B and Mu one going and one coming.
+1 Jio Oil factory at K and one warehouse at D using 1 tank trailers for oil going full and coming empty.
+Sohan Industries at D and K using 2 flatbeds between D and K, 1 going and 1 coming.
+1 Patil Freight factory at K and one warehouse at B using 2 flatbed trailers for goods 1 going and 1 coming.
+2 Delhivery warehouses, 1 in B and 1 in Mu using 1 Double back and forth.
+The above ones are regular contracts.
+Karan Pvt,Ltd in D using 1 Low boy from Mu to D
+Neeraj Automotive in B using Car hauler from Mu to B
+These 2 are special contracts.
+These should be displayed on the map.
+Allotment will be random according to the load entered and truck availability.
+We will be having 44 Drivers. I have kept photos of 44 drivers as 1.jpg 2.jpg and till 44.jpg in /drivers and truck photos as Picture6.png And trailer photos as Picture7.png
+Remember, only double trailer is saved as jpeg – double.jpeg
+Picture8.png
+On dashboard’s side should be the dispatches of today Picture9.png
+Below should be alerts and exceptions of late pickups, temperature, hos risk and Unpaid invoice and quick actions to create load, assign driver, generate invoice and plan route. Create load should ask which warehouse to where, which type of load and recomment trailers and trucks and drivers nearby.
+Picture10.png
+Then in the loads, and option to create load and optional feature to import loads to excel and all the loads and their detail. When selected a load 
+Picture11.png
+Should show the load summary and the timelines of all when the load was created and driver was assigned when was the pickup done, everything and from where to where 
+Picture12.png
+And current location. Can we do something like automatically the drivers location is changed when taken orders in 1:12 real world time like one minute here should be 12 minute there and it follows google maps ideal route and every minute the location updates towards the destination. 
+In each load, Stops Picture13.png
+Docs Picture14.png
+Notes Picture15.png
+Billing Picture16.png Picture17.png
+All these details should be there and for each load id, create a folder and be able to upload a documents for each required thing should be uploadable and openable to the default pdf opening thing in device. 
+Then comes the dispatch board Picture18.png
+About the unassigned loads, assigned , all loads’s statuses should be visible here Picture19.png
+And should be openable to check its details 
+Picture20.png Then is Fleet, trucks and their trailers and their current drivers and all the load and destination details should be visible here. When opened all the truck, trailer and driver photo should be visible.
+Picture21.png The vehicle details and maintenance history should be visible here
+Then the drivers menu Picture22.png
+All drivers and their details of where they are going and the allotted vehicle details should be visible here. When selected a person, the details of him like photo, name, age, license number and all other details should be visible Picture23.png
+Then coms the routes and tracking Picture24.png
+Here, the map should open and which delivery is going where and its current location should be displayed, even if all the deliveries are marked on their map with route or a selection of deliveries showing its routes. Picture25.png
+This is warehouses menu, Picture26.png
+All warehouses and factories and fill in random details for it like the image. Picture27.png
+Picture28.png
+I don’t need any pod menu I guess, let’s skip that.
+Then Comes the Billing and Invoices Picture29.png Picture30.png Picture31.png Picture32.png
+And moving on to Reports, it is the most important part, it should be made well and good looking. 
+Picture33.png Picture34.png Picture35.png Picture36.png
+No need for exporting options I guess. Then comes Ai-Ops assistant. See what all can be implemented using this Picture37.png Picture38.png
+Then the Settings menu - Picture39.png Picture40.png Picture41.png
+
+All this is just reference, our project should be better. Make any necessary changes like addition or deletion. But I have one addition, I want a Queries menu in the left bar and there, all the queries which are executing should be printed or appear there and the outputs received in the form of the codes also should be written there. The data which will be inputted should be realistic cause it is like a dream project to me and it should turn out good.
+
+What do you think about this, any changes to be made? Let’s discuss it and then after that only you give me a frontend.md file to give along with this for antigravity. Let’s do this, don’t give any queries to create tables now only, let’s clarify any requirements and discuss it first.

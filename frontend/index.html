@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fleet Force — Logistics Command Centre</title>
+    <meta name="description" content="Fleet Force is a premium logistics management dashboard for real-time fleet tracking, dispatching, and operations management.">
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28'>🚛</text></svg>">
+</head>
+<body>
+    <!-- ==================== SPLASH SCREEN ==================== -->
+    <div id="splash-screen">
+        <div class="splash-logo">FLEET <span>FORCE</span></div>
+        <div class="splash-tagline">Logistics Command Centre</div>
+        <div class="splash-loader"></div>
+    </div>
+
+    <!-- ==================== AUTH SCREEN ==================== -->
+    <div id="auth-screen">
+        <div class="auth-container">
+            <div class="auth-brand">
+                <h1>FLEET <span>FORCE</span></h1>
+                <p>Sign in to your account</p>
+            </div>
+            <div class="auth-tabs">
+                <button class="auth-tab active" data-tab="login" id="tab-login">Sign In</button>
+                <button class="auth-tab" data-tab="signup" id="tab-signup">Sign Up</button>
+            </div>
+            <!-- Login Form -->
+            <form id="login-form">
+                <div class="auth-field">
+                    <label for="login-username">Username</label>
+                    <input type="text" id="login-username" placeholder="Enter your username" autocomplete="username" required>
+                </div>
+                <div class="auth-field">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" placeholder="Enter your password" autocomplete="current-password" required>
+                </div>
+                <button type="submit" class="auth-submit" id="login-btn">Sign In →</button>
+                <div class="auth-error" id="login-error"></div>
+            </form>
+            <!-- Signup Form -->
+            <form id="signup-form" style="display:none">
+                <div class="auth-field">
+                    <label for="signup-displayname">Display Name</label>
+                    <input type="text" id="signup-displayname" placeholder="Your full name" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signup-username">Username</label>
+                    <input type="text" id="signup-username" placeholder="Choose a username" autocomplete="username" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signup-password">Password</label>
+                    <input type="password" id="signup-password" placeholder="Choose a password" autocomplete="new-password" required>
+                </div>
+                <div class="auth-field">
+                    <label for="signup-role">Role</label>
+                    <select id="signup-role" required>
+                        <option value="">Select a role...</option>
+                    </select>
+                </div>
+                <button type="submit" class="auth-submit" id="signup-btn">Create Account →</button>
+                <div class="auth-error" id="signup-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== APP SHELL ==================== -->
+    <div id="app-shell">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-brand" onclick="location.reload()" style="cursor:pointer" title="Reload">
+                <div class="brand-text">FLEET <span>FORCE</span></div>
+            </div>
+            <div class="sidebar-nav">
+                <div class="nav-section">
+                    <div class="nav-section-title">Main</div>
+                    <div class="nav-item active" data-page="dashboard" id="nav-dashboard">
+                        <span class="nav-icon">📊</span><span class="nav-label">Dashboard</span>
+                    </div>
+                    <div class="nav-item" data-page="loads" id="nav-loads">
+                        <span class="nav-icon">📦</span><span class="nav-label">Loads</span>
+                        <span class="nav-badge" id="loads-badge">19</span>
+                    </div>
+                    <div class="nav-item" data-page="dispatch" id="nav-dispatch">
+                        <span class="nav-icon">🗂️</span><span class="nav-label">Dispatch Board</span>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Fleet</div>
+                    <div class="nav-item" data-page="fleet" id="nav-fleet">
+                        <span class="nav-icon">🚛</span><span class="nav-label">Fleet</span>
+                    </div>
+                    <div class="nav-item" data-page="drivers" id="nav-drivers">
+                        <span class="nav-icon">👤</span><span class="nav-label">Drivers</span>
+                    </div>
+                    <div class="nav-item" data-page="tracking" id="nav-tracking">
+                        <span class="nav-icon">📍</span><span class="nav-label">Routes & Tracking</span>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">Operations</div>
+                    <div class="nav-item" data-page="warehouses" id="nav-warehouses">
+                        <span class="nav-icon">🏭</span><span class="nav-label">Warehouses</span>
+                    </div>
+                    <div class="nav-item" data-page="billing" id="nav-billing">
+                        <span class="nav-icon">💰</span><span class="nav-label">Billing</span>
+                    </div>
+                    <div class="nav-item" data-page="reports" id="nav-reports">
+                        <span class="nav-icon">📈</span><span class="nav-label">Reports</span>
+                    </div>
+                </div>
+                <div class="nav-section">
+                    <div class="nav-section-title">System</div>
+                    <div class="nav-item" data-page="queries" id="nav-queries">
+                        <span class="nav-icon">⚡</span><span class="nav-label">SQL Terminal</span>
+                    </div>
+                    <div class="nav-item" data-page="settings" id="nav-settings">
+                        <span class="nav-icon">⚙️</span><span class="nav-label">Settings</span>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-footer">
+                <div class="sidebar-user" id="sidebar-user">
+                    <div class="user-avatar" id="user-avatar">DG</div>
+                    <div class="user-info">
+                        <div class="user-name" id="user-display-name">Loading...</div>
+                        <div class="user-role" id="user-role-name">—</div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main -->
+        <div class="main-content">
+            <header class="main-header">
+                <div class="page-title">
+                    <span class="page-icon" id="page-icon">📊</span>
+                    <span id="page-title-text">Dashboard</span>
+                </div>
+                <div class="header-actions">
+                    <button class="header-btn theme-toggle-btn" id="theme-toggle" title="Toggle theme">🌙</button>
+                    <button class="header-btn" id="notif-btn" title="Notifications">
+                        🔔 <span class="badge" id="notif-badge">5</span>
+                    </button>
+                    <button class="header-btn" id="sidebar-collapse-btn" title="Toggle sidebar">☰</button>
+                </div>
+            </header>
+            <div class="page-content" id="page-content">
+                <!-- Pages rendered here by JS -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast container -->
+    <div class="toast-container" id="toast-container"></div>
+    <!-- Global detail panel (used by loads, fleet, drivers) -->
+    <div id="load-detail-panel" class="detail-panel" style="display:none"></div>
+
+    <script src="js/app.js"></script>
+    <script src="js/loads.js"></script>
+    <script src="js/dispatch.js"></script>
+    <script src="js/fleet.js"></script>
+    <script src="js/drivers.js"></script>
+    <script src="js/tracking.js"></script>
+    <script src="js/warehouses.js"></script>
+    <script src="js/billing.js"></script>
+    <script src="js/reports.js"></script>
+    <script src="js/queries.js"></script>
+    <script src="js/settings.js"></script>
+</body>
+</html>

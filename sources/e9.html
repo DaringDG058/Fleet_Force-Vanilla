@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FLEET FORCE — A3/A2 ER Diagram (Chen Notation)</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Syne:wght@700;800&display=swap');
+
+:root {
+  --bg: #03060d;
+  --hdr: #050a15;
+  --sep: #1e293b;
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  
+  --c-hr: #14b8a6;   
+  --c-crm: #3b82f6;  
+  --c-inv: #10b981;  
+  --c-flt: #eab308;  
+  --c-del: #f97316;  
+  --c-fin: #ec4899;  
+
+  --ent-bg: #060d1c;
+  --rel-bg: #0f0822;
+  --attr-bg: #0a1120;
+}
+
+:root.theme-light {
+  --bg: #ffffff;
+  --hdr: #ffffff;
+  --sep: #cbd5e1;
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  
+  --ent-bg: #ffffff;
+  --rel-bg: #f8fafc;
+  --attr-bg: #f1f5f9;
+}
+
+* { 
+  margin: 0; padding: 0; box-sizing: border-box; user-select: none; 
+  -webkit-print-color-adjust: exact !important;
+  print-color-adjust: exact !important;
+}
+
+html, body { 
+  background: var(--bg); overflow: hidden; 
+  width: 100vw; height: 100vh; 
+  font-family: 'IBM Plex Mono', monospace; transition: background 0.2s ease; 
+}
+
+#hdr {
+  position: fixed; top: 0; left: 0; right: 0; height: 60px;
+  background: var(--hdr); border-bottom: 2px solid var(--sep);
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 25px; z-index: 300;
+}
+#hdr h1 {
+  font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800;
+  letter-spacing: .08em; color: var(--text-primary); text-transform: uppercase;
+}
+.btn-toggle {
+  background: transparent; border: 1.5px solid var(--sep); color: var(--text-secondary);
+  font-size: 13px; padding: 8px 14px; cursor: pointer; border-radius: 6px;
+  font-family: 'IBM Plex Mono', monospace; transition: all 0.2s ease; font-weight: 600;
+}
+.btn-toggle:hover { background: var(--sep); color: var(--text-primary); }
+
+#cc { position: fixed; top: 60px; left: 0; right: 0; bottom: 0; overflow: hidden; cursor: grab; }
+#cc.gr { cursor: grabbing; }
+
+svg#D { width: 100%; height: 100%; display: block; }
+
+#ctrl { position: fixed; bottom: 25px; right: 25px; display: flex; flex-direction: column; gap: 6px; z-index: 300; }
+.cb {
+  width: 44px; height: 44px; background: var(--ent-bg); border: 1.8px solid var(--sep);
+  color: var(--text-secondary); font-size: 20px; cursor: pointer; border-radius: 9px;
+  display: flex; align-items: center; justify-content: center; transition: all 0.2s;
+}
+.cb:hover { background: var(--sep); color: var(--text-primary); }
+#hint { position: fixed; top: 75px; right: 20px; font-size: 11px; color: var(--text-secondary); z-index: 100; font-weight: 500;}
+
+@media print {
+  @page { size: A2 landscape; margin: 0 !important; }
+  
+  html, body { 
+    display: flex !important; flex-direction: column !important; 
+    width: 100vw !important; height: 100vh !important; max-height: 100vh !important;
+    background: var(--bg) !important; 
+    padding: 0 !important; margin: 0 !important;
+    overflow: hidden !important;
+  }
+  
+  * { filter: none !important; text-shadow: none !important; box-shadow: none !important; }
+  .btn-toggle, #ctrl, #hint { display: none !important; }
+  
+  #hdr {
+    position: static !important; 
+    flex: 0 0 auto !important; 
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    height: 15mm !important; padding: 15mm 0 !important; 
+    background: transparent !important; border: none !important;
+  }
+  #hdr h1 { font-size: 18px !important; color: var(--text-primary) !important; text-align: center !important; margin: 0 !important; }
+  
+  #cc { 
+    position: static !important; 
+    flex: 1 1 auto !important; 
+    display: flex !important; align-items: center !important; justify-content: center !important;
+    overflow: hidden !important; 
+    padding: 0 5mm 5mm 5mm !important; margin: 0 !important;
+    width: 100% !important; height: 100% !important;
+  }
+  
+  svg#D { 
+    width: 100% !important; height: 100% !important; 
+    max-width: 100% !important; max-height: 100% !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="hdr">
+  <h1>FLEET FORCE - ER DIAGRAM by K M Dushyanth Gowda - 1MS24IS058 and Rohan Joshi - 1MS24IS097</h1>
+  <button class="btn-toggle" onclick="tTh()"><span id="th-ico">☀️</span> Toggle White Theme</button>
+</div>
+<div id="hint">Scroll to Zoom · Drag to Pan · Export to PDF for A3/A2 Print</div>
+<div id="cc"><svg id="D" xmlns="http://www.w3.org/2000/svg"></svg></div>
+<div id="ctrl">
+  <button class="cb" onclick="zm(0.85)">+</button>
+  <button class="cb" onclick="zm(1.15)">−</button>
+  <button class="cb" onclick="rv()" style="font-size:14px">⌖</button>
+</div>
+
+<script>
+const NS = 'http://www.w3.org/2000/svg';
+
+// THE GOLDILOCKS GRID: Tight enough to look cohesive, wide enough to prevent overlap
+const BASE_W = 19000; 
+const BASE_H = 14000;
+
+// Perfectly balanced element sizes
+const EW = 420;  
+const EH = 140;   
+const DW = 280;  
+const DH = 180;   
+const AH = 85;   
+
+// Optimized coordinates to eliminate dead space
+const X0 = 1800, X1 = 4900, X2 = 8000, X3 = 11100, X4 = 14200, X5 = 17300;
+const Y0 = 1800, Y1 = 4400, Y2 = 7000, Y3 = 9600, Y4 = 12200;
+
+const ENTITIES = [
+  // HR & ROUTING
+  { id: 'DEPARTMENT', x: X0, y: Y0, c: 'var(--c-hr)', weak: false, attrs: ['*dept_id', 'dept_name', 'budget'] },
+  { id: 'EMPLOYEE', x: X1, y: Y0, c: 'var(--c-hr)', weak: false, attrs: ['*emp_id', 'emp_code', 'first_name', 'email', 'is_active'] },
+  { id: 'ROLES', x: X2, y: Y0, c: 'var(--c-hr)', weak: false, attrs: ['*role_id', 'role_name', 'access_level'] },
+  { id: 'ROUTE', x: X0, y: Y1, c: 'var(--c-hr)', weak: false, attrs: ['*route_id', 'distance_km', 'est_hours'] },
+  { id: 'HUB', x: X1, y: Y1, c: 'var(--c-hr)', weak: false, attrs: ['*hub_id', 'hub_name', 'city', 'latitude', 'longitude'] },
+
+  // CRM & ORDERS
+  { id: 'CUSTOMER', x: X3, y: Y0, c: 'var(--c-crm)', weak: false, attrs: ['*customer_id', 'company_name', 'email', 'acct_status'] },
+  { id: 'ADDRESS', x: X4, y: Y0, c: 'var(--c-crm)', weak: true, attrs: ['~address_id', 'street', 'city', 'pincode', 'is_default'] },
+  { id: 'COMPLAINT', x: X5, y: Y0, c: 'var(--c-crm)', weak: true, attrs: ['~complaint_id', 'description', 'status'] },
+  { id: 'CONTRACT', x: X3, y: Y1, c: 'var(--c-crm)', weak: false, attrs: ['*contract_id', 'start_date', 'end_date', 'sla_tier'] },
+  { id: 'ORDERS', x: X4, y: Y1, c: 'var(--c-crm)', weak: false, attrs: ['*order_id', 'status', 'priority'] },
+
+  // PRODUCT & WAREHOUSE
+  { id: 'CATEGORY', x: X5, y: Y1, c: 'var(--c-inv)', weak: false, attrs: ['*category_id', 'cat_name', 'is_hazmat_class'] },
+  { id: 'WAREHOUSE', x: X4, y: Y2, c: 'var(--c-inv)', weak: false, attrs: ['*warehouse_id', 'area_sqft', 'is_temp_ctld'] },
+  { id: 'PRODUCT', x: X5, y: Y2, c: 'var(--c-inv)', weak: false, attrs: ['*product_id', 'sku', 'product_name', 'unit_weight_kg'] },
+  { id: 'BIN_LOCATION', x: X4, y: Y3, c: 'var(--c-inv)', weak: true, attrs: ['~bin_id', 'zone', 'rack', 'is_occupied'] },
+  { id: 'VENDOR', x: X5, y: Y3, c: 'var(--c-inv)', weak: false, attrs: ['*vendor_id', 'company_name', 'vendor_rating'] },
+
+  // BULKED FLEET
+  { id: 'TRACTOR', x: X0, y: Y2, c: 'var(--c-flt)', weak: false, attrs: ['*tractor_id', 'reg_no', 'make', 'model', 'horsepower_hp', 'peak_torque_nm', 'insurance_expiry', 'pollution_cert_exp', 'odometer_km'] },
+  { id: 'TRAILER', x: X1, y: Y2, c: 'var(--c-flt)', weak: false, attrs: ['*trailer_id', 'trailer_type', 'capacity_kg', 'capacity_m3', 'make', 'manufacture_year'] },
+  { id: 'DRIVER', x: X2, y: Y2, c: 'var(--c-flt)', weak: false, attrs: ['*driver_id', 'license_no', 'license_type', 'license_expiry', 'experience_yrs', 'driver_rating'] },
+  { id: 'MAINTENANCE', x: X0, y: Y3, c: 'var(--c-flt)', weak: true, attrs: ['~maint_id', 'maint_type', 'maint_date', 'cost', 'odometer_reading', 'service_center'] },
+  { id: 'TRIP', x: X1, y: Y3, c: 'var(--c-flt)', weak: false, attrs: ['*trip_id', 'planned_start', 'actual_start', 'status', 'fuel_consumed_L', 'distance_km'] },
+  { id: 'TELEMETRY', x: X0, y: Y4, c: 'var(--c-flt)', weak: true, attrs: ['~telemetry_id', 'latitude', 'longitude', 'engine_load_pct', 'timestamp'] },
+
+  // EXECUTION & DELIVERY
+  { id: 'SHIPMENT', x: X3, y: Y2, c: 'var(--c-del)', weak: false, attrs: ['*shipment_id', 'status', 'total_weight_kg'] },
+  { id: 'DELIVERY', x: X2, y: Y3, c: 'var(--c-del)', weak: false, attrs: ['*delivery_id', 'status', 'scheduled_date'] },
+  { id: 'PACKAGE', x: X3, y: Y3, c: 'var(--c-del)', weak: true, attrs: ['~package_id', 'barcode', 'weight_kg', 'is_fragile'] },
+  { id: 'DEL_ATTEMPT', x: X1, y: Y4, c: 'var(--c-del)', weak: true, attrs: ['~attempt_id', 'status', 'failure_reason'] },
+  { id: 'POD', x: X2, y: Y4, c: 'var(--c-del)', weak: true, attrs: ['~pod_id', 'recipient_name', 'photo_url', 'otp_verified'] },
+
+  // FINANCE & LOGS
+  { id: 'INVOICE', x: X3, y: Y4, c: 'var(--c-fin)', weak: false, attrs: ['*invoice_id', 'total_amount', 'status'] },
+  { id: 'PAYMENT', x: X4, y: Y4, c: 'var(--c-fin)', weak: true, attrs: ['~payment_id', 'amount', 'payment_method', 'status'] },
+  { id: 'AI_LOG', x: X4, y: Y3, c: 'var(--c-fin)', weak: true, attrs: ['~log_id', 'query_context', 'timestamp'] },
+  { id: 'AUDIT_LOG', x: X5, y: Y4, c: 'var(--c-fin)', weak: true, attrs: ['~audit_id', 'table_name', 'action', 'timestamp'] }
+];
+
+// Scaled offsets mapped accurately to the tighter grid dimensions
+const RELS = [
+  { id:'HAS', e1:'DEPARTMENT', e2:'EMPLOYEE', card1:'1', card2:'N', c:'var(--c-hr)' },
+  { id:'MANAGES', e1:'EMPLOYEE', e2:'HUB', card1:'1', card2:'1', c:'var(--c-hr)' },
+  { id:'ASSIGNED_TO', e1:'EMPLOYEE', e2:'ROLES', card1:'M', card2:'N', c:'var(--c-hr)', attrs:['assigned_at'] }, 
+  { id:'CONNECTS_ORIGIN', e1:'HUB', e2:'ROUTE', card1:'1', card2:'N', c:'var(--c-hr)', oy:-300 },
+  { id:'CONNECTS_DEST', e1:'HUB', e2:'ROUTE', card1:'1', card2:'N', c:'var(--c-hr)', oy:300 },
+  { id:'HAS_ADDR', e1:'CUSTOMER', e2:'ADDRESS', card1:'1', card2:'N', c:'var(--c-crm)', iden:true },
+  { id:'SIGNS', e1:'CUSTOMER', e2:'CONTRACT', card1:'1', card2:'N', c:'var(--c-crm)' },
+  { id:'PLACES', e1:'CUSTOMER', e2:'ORDERS', card1:'1', card2:'N', c:'var(--c-crm)' },
+  { id:'APPLIES_TO', e1:'CONTRACT', e2:'ORDERS', card1:'1', card2:'N', c:'var(--c-crm)' },
+  { id:'DELIVERS_TO', e1:'ORDERS', e2:'ADDRESS', card1:'N', card2:'1', c:'var(--c-crm)' },
+  { id:'RAISES', e1:'CUSTOMER', e2:'COMPLAINT', card1:'1', card2:'N', c:'var(--c-crm)', oy: -1000 }, 
+  { id:'AGAINST', e1:'ORDERS', e2:'COMPLAINT', card1:'1', card2:'N', c:'var(--c-crm)' },
+  { id:'CLASSIFIES', e1:'CATEGORY', e2:'PRODUCT', card1:'1', card2:'N', c:'var(--c-inv)' },
+  { id:'SUPPLIES', e1:'VENDOR', e2:'PRODUCT', card1:'1', card2:'N', c:'var(--c-inv)' },
+  { id:'CONTAINS', e1:'ORDERS', e2:'PRODUCT', card1:'M', card2:'N', c:'var(--c-inv)', attrs:['quantity', 'weight_kg'] }, 
+  { id:'OPERATES', e1:'HUB', e2:'WAREHOUSE', card1:'1', card2:'N', c:'var(--c-inv)' },
+  { id:'HAS_BIN', e1:'WAREHOUSE', e2:'BIN_LOCATION', card1:'1', card2:'N', c:'var(--c-inv)', iden:true },
+  { id:'STORES', e1:'BIN_LOCATION', e2:'PRODUCT', card1:'M', card2:'N', c:'var(--c-inv)', attrs:['quantity', 'last_updated'] }, 
+  { id:'STATIONS_TRAC', e1:'HUB', e2:'TRACTOR', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'STATIONS_TRAIL', e1:'HUB', e2:'TRAILER', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'IS_A', e1:'EMPLOYEE', e2:'DRIVER', card1:'1', card2:'1', c:'var(--c-flt)' },
+  { id:'UNDERGOES', e1:'TRACTOR', e2:'MAINTENANCE', card1:'1', card2:'N', c:'var(--c-flt)', iden:true },
+  { id:'SERVED_BY', e1:'ROUTE', e2:'TRIP', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'USES', e1:'TRACTOR', e2:'TRIP', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'PULLS', e1:'TRAILER', e2:'TRIP', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'DRIVES', e1:'DRIVER', e2:'TRIP', card1:'1', card2:'N', c:'var(--c-flt)' },
+  { id:'LOGS', e1:'TRACTOR', e2:'TELEMETRY', card1:'1', card2:'N', c:'var(--c-flt)', iden:true, ox: -1400 }, 
+  { id:'FULFILLED_BY', e1:'ORDERS', e2:'SHIPMENT', card1:'1', card2:'N', c:'var(--c-del)' },
+  { id:'INCLUDES', e1:'SHIPMENT', e2:'PACKAGE', card1:'1', card2:'N', c:'var(--c-del)', iden:true },
+  { id:'CARRIES', e1:'TRIP', e2:'PACKAGE', card1:'M', card2:'N', c:'var(--c-del)', oy: -1200, attrs:['~event_id', 'event_type', 'timestamp'] }, 
+  { id:'ASSIGNED_TO', e1:'SHIPMENT', e2:'DELIVERY', card1:'1', card2:'N', c:'var(--c-del)' },
+  { id:'ATTEMPTS', e1:'DELIVERY', e2:'DEL_ATTEMPT', card1:'1', card2:'N', c:'var(--c-del)', iden:true },
+  { id:'CONFIRMED_BY', e1:'DELIVERY', e2:'POD', card1:'1', card2:'1', c:'var(--c-del)', iden:true },
+  { id:'GENERATES', e1:'ORDERS', e2:'INVOICE', card1:'1', card2:'1', c:'var(--c-fin)' },
+  { id:'BILLED_TO', e1:'CUSTOMER', e2:'INVOICE', card1:'1', card2:'N', c:'var(--c-fin)', ox: 1400 }, 
+  { id:'PAID_VIA', e1:'INVOICE', e2:'PAYMENT', card1:'1', card2:'N', c:'var(--c-fin)', iden:true },
+  { id:'TRIGGERS', e1:'EMPLOYEE', e2:'AI_LOG', card1:'1', card2:'N', c:'var(--c-fin)', iden:true },
+  { id:'PERFORMS', e1:'EMPLOYEE', e2:'AUDIT_LOG', card1:'1', card2:'N', c:'var(--c-fin)', iden:true, oy: -1400 } 
+];
+
+const svg = document.getElementById('D');
+const gLines = el('g', {}, svg); 
+const gRels = el('g', {}, svg);
+const gEnts = el('g', {}, svg);
+const gAttrs = el('g', {}, svg);
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  for (const k in attrs) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+RELS.forEach(r => {
+  const e1 = ENTITIES.find(e => e.id === r.e1);
+  const e2 = ENTITIES.find(e => e.id === r.e2);
+  if(!e1 || !e2) return;
+
+  const cx = (e1.x + e2.x) / 2 + (r.ox || 0);
+  const cy = (e1.y + e2.y) / 2 + (r.oy || 0);
+
+  el('line', { x1: e1.x, y1: e1.y, x2: cx, y2: cy, stroke: 'var(--sep)', 'stroke-width': 8 }, gLines);
+  el('line', { x1: e2.x, y1: e2.y, x2: cx, y2: cy, stroke: 'var(--sep)', 'stroke-width': 8 }, gLines);
+
+  function getOffsetPos(fromX, fromY, toX, toY, dist) {
+    const dx = toX - fromX; const dy = toY - fromY; const len = Math.sqrt(dx*dx + dy*dy);
+    return { x: fromX + (dx/len)*dist, y: fromY + (dy/len)*dist - 15 };
+  }
+  
+  const p1 = getOffsetPos(cx, cy, e1.x, e1.y, 350);
+  const p2 = getOffsetPos(cx, cy, e2.x, e2.y, 350);
+  
+  const c1t = el('text', { x: p1.x, y: p1.y, fill: r.c, 'font-size': '80px', 'font-weight': '900', 'text-anchor': 'middle' }, gRels);
+  c1t.textContent = r.card1;
+  const c2t = el('text', { x: p2.x, y: p2.y, fill: r.c, 'font-size': '80px', 'font-weight': '900', 'text-anchor': 'middle' }, gRels);
+  c2t.textContent = r.card2;
+
+  const pts = `${cx},${cy - DH} ${cx + DW},${cy} ${cx},${cy + DH} ${cx - DW},${cy}`;
+  if(r.iden) { 
+    el('polygon', { points: `${cx},${cy - DH - 16} ${cx + DW + 16},${cy} ${cx},${cy + DH + 16} ${cx - DW - 16},${cy}`, fill: 'none', stroke: r.c, 'stroke-width': 8 }, gRels);
+  }
+  el('polygon', { points: pts, fill: 'var(--rel-bg)', stroke: r.c, 'stroke-width': 8 }, gRels);
+  
+  const rt = el('text', { x: cx, y: cy + 15, fill: '#fff', 'font-size': '45px', 'font-weight': 'bold', 'text-anchor': 'middle' }, gRels);
+  rt.style.fontFamily = "'Syne', sans-serif";
+  rt.textContent = r.id;
+
+  if(r.attrs) {
+    const totalRAttrs = r.attrs.length;
+    r.attrs.forEach((attr, i) => {
+      const cleanName = attr.replace('*', '').replace('~', '');
+      const attrW = Math.max(180, cleanName.length * 22 + 50);
+      
+      const offsetAngle = (i - (totalRAttrs - 1) / 2) * 0.8; 
+      const baseAngle = -Math.PI / 2; // Point Straight Up
+      const angle = baseAngle + offsetAngle;
+      
+      const dist = 700 + (i % 2 === 0 ? 0 : 200); 
+      
+      const ax = cx + Math.cos(angle) * dist;
+      const ay = cy + Math.sin(angle) * dist;
+      
+      el('line', { x1: cx, y1: cy, x2: ax, y2: ay, stroke: 'var(--sep)', 'stroke-width': 6 }, gLines);
+      el('ellipse', { cx: ax, cy: ay, rx: attrW, ry: AH, fill: 'var(--attr-bg)', stroke: r.c, 'stroke-width': 6 }, gRels);
+      
+      const txt = el('text', { x: ax, y: cy + dist + 12, fill: 'var(--text-secondary)', 'font-size': '40px', 'text-anchor': 'middle' }, gRels);
+      // BUG FIX: Actually attach text to the angled 'ay' coordinate so it follows the ellipse
+      txt.setAttribute('y', ay + 12);
+      txt.style.fontFamily = "'IBM Plex Mono', monospace";
+      txt.textContent = cleanName;
+      if(attr.includes('~')) el('line', { x1: ax - cleanName.length*10, y1: ay + 26, x2: ax + cleanName.length*10, y2: ay + 26, stroke: r.c, 'stroke-width': 6, 'stroke-dasharray': '10,10' }, gRels);
+    });
+  }
+});
+
+ENTITIES.forEach(e => {
+  if(e.weak) {
+    el('rect', { x: e.x - EW - 16, y: e.y - EH - 16, width: EW*2 + 32, height: EH*2 + 32, fill: 'none', stroke: e.c, 'stroke-width': 8 }, gEnts);
+  }
+  el('rect', { x: e.x - EW, y: e.y - EH, width: EW*2, height: EH*2, fill: 'var(--ent-bg)', stroke: e.c, 'stroke-width': 8 }, gEnts);
+  
+  const t = el('text', { x: e.x, y: e.y + 20, fill: '#fff', 'font-size': '65px', 'font-weight': '800', 'letter-spacing': '3px', 'text-anchor': 'middle' }, gEnts);
+  t.style.fontFamily = "'Syne', sans-serif";
+  t.textContent = e.id;
+
+  const totalAttrs = e.attrs.length;
+  e.attrs.forEach((attr, i) => {
+    // 0.45 Angle Bias gracefully rotates attributes into the empty diagonal space
+    const angle = (i * Math.PI * 2) / totalAttrs + 0.45; 
+    
+    const isPK = attr.startsWith('*');
+    const isPartial = attr.startsWith('~');
+    const cleanName = attr.replace('*', '').replace('~', '');
+    
+    const attrW = Math.max(180, cleanName.length * 22 + 50);
+
+    // Dynamic Clearance Math perfectly suited to the medium grid
+    const baseDist = Math.max(EW, EH) + attrW + 100; 
+    const dist = baseDist + (i % 2 === 0 ? 0 : 250); 
+    
+    const ax = e.x + Math.cos(angle) * dist;
+    const ay = e.y + Math.sin(angle) * dist;
+
+    el('line', { x1: e.x, y1: e.y, x2: ax, y2: ay, stroke: 'var(--sep)', 'stroke-width': 6 }, gLines);
+    el('ellipse', { cx: ax, cy: ay, rx: attrW, ry: AH, fill: 'var(--attr-bg)', stroke: e.c, 'stroke-width': isPK ? 8 : 6 }, gAttrs);
+    
+    const txtColor = isPK ? '#fbbf24' : isPartial ? '#c4b5fd' : 'var(--text-secondary)';
+    const aText = el('text', { x: ax, y: ay + 12, fill: txtColor, 'font-size': '40px', 'font-weight': isPK ? 'bold' : 'normal', 'text-anchor': 'middle' }, gAttrs);
+    aText.style.fontFamily = "'IBM Plex Mono', monospace";
+    aText.textContent = cleanName;
+
+    if(isPK) {
+      el('line', { x1: ax - cleanName.length*10, y1: ay + 26, x2: ax + cleanName.length*10, y2: ay + 26, stroke: '#fbbf24', 'stroke-width': 6 }, gAttrs);
+    }
+    if(isPartial) {
+      el('line', { x1: ax - cleanName.length*10, y1: ay + 26, x2: ax + cleanName.length*10, y2: ay + 26, stroke: '#c4b5fd', 'stroke-width': 6, 'stroke-dasharray': '10,10' }, gAttrs);
+    }
+  });
+});
+
+let vw = BASE_W, vh = BASE_H;
+let vx = 0, vy = 0;
+let isDown = false, startX, startY;
+const cc = document.getElementById('cc');
+
+function applyViewBox() { svg.setAttribute('viewBox', `${vx} ${vy} ${vw} ${vh}`); }
+
+vx = (BASE_W - (cc.clientWidth * (BASE_W / cc.clientWidth))) / 2;
+vy = (BASE_H - (cc.clientHeight * (BASE_H / cc.clientHeight))) / 2;
+vw = BASE_W * 1.05; vh = BASE_H * 1.05; 
+vx -= (vw - BASE_W) / 2; vy -= (vh - BASE_H) / 2;
+applyViewBox();
+
+cc.addEventListener('mousedown', e => {
+  isDown = true; startX = e.clientX; startY = e.clientY; cc.classList.add('gr');
+});
+window.addEventListener('mouseup', () => { isDown = false; cc.classList.remove('gr'); });
+window.addEventListener('mousemove', e => {
+  if (!isDown) return;
+  const rect = cc.getBoundingClientRect();
+  const ratioX = vw / rect.width; const ratioY = vh / rect.height;
+  vx -= (e.clientX - startX) * ratioX; vy -= (e.clientY - startY) * ratioY;
+  startX = e.clientX; startY = e.clientY;
+  applyViewBox();
+});
+
+cc.addEventListener('wheel', e => {
+  e.preventDefault();
+  const rect = cc.getBoundingClientRect();
+  const mouseX = e.clientX - rect.left; const mouseY = e.clientY - rect.top;
+  const svgX = vx + (mouseX / rect.width) * vw; const svgY = vy + (mouseY / rect.height) * vh;
+  const factor = e.deltaY > 0 ? 1.15 : 0.85;
+  vw *= factor; vh *= factor;
+  vx = svgX - (mouseX / rect.width) * vw; vy = svgY - (mouseY / rect.height) * vh;
+  applyViewBox();
+});
+
+function zm(f) {
+  const rect = cc.getBoundingClientRect();
+  const svgX = vx + vw / 2; const svgY = vy + vh / 2;
+  vw *= f; vh *= f;
+  vx = svgX - vw / 2; vy = svgY - vh / 2;
+  applyViewBox();
+}
+
+function rv() { 
+  vw = BASE_W * 1.05; vh = BASE_H * 1.05; 
+  vx = -((vw - BASE_W) / 2); vy = -((vh - BASE_H) / 2);
+  applyViewBox(); 
+}
+
+function tTh() {
+  const isLight = document.documentElement.classList.toggle('theme-light');
+  const btn = document.querySelector('.btn-toggle');
+  btn.innerHTML = `<span id="th-ico">${isLight ? '🌙' : '☀️'}</span> Toggle ${isLight ? 'Dark' : 'White'} Theme`;
+  
+  const attrs = document.querySelectorAll('text[fill="var(--text-secondary)"]');
+  attrs.forEach(a => a.setAttribute('fill', isLight ? '#475569' : '#94a3b8'));
+  const titles = document.querySelectorAll('text[fill="#fff"]');
+  titles.forEach(t => t.setAttribute('fill', isLight ? '#0f172a' : '#fff'));
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+-- FLEET FORCE — Seed Data Part 2: Fleet (Trucks, Trailers, Drivers)
+
+-- ==================== 21 TRACTORS ====================
+-- 7 Volvo FH16 (6 operating, 1 spare in Bengaluru)
+INSERT INTO tractor VALUES (1,'KA-01-AB-1001','Volvo','FH16',2022,750,3550,44000,500,3,DATE '2027-03-15',DATE '2027-01-10',125430.5,'In Use',1,12.9141,74.8560,'/trucks/volvo.jpg',SYSTIMESTAMP,96.5,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (2,'KA-01-AB-1002','Volvo','FH16',2023,750,3550,44000,500,3,DATE '2027-06-20',DATE '2027-04-15',98200.3,'In Use',2,12.9716,77.5946,'/trucks/volvo.jpg',SYSTIMESTAMP,98.0,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (3,'MH-01-CD-2001','Volvo','FH16',2022,750,3550,44000,500,3,DATE '2027-02-28',DATE '2026-12-20',142560.8,'In Use',3,19.0760,72.8777,'/trucks/volvo.jpg',SYSTIMESTAMP,94.2,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (4,'TN-01-EF-3001','Volvo','FH16',2021,750,3550,44000,500,3,DATE '2027-01-15',DATE '2026-11-30',167890.2,'In Use',4,13.0827,80.2707,'/trucks/volvo.jpg',SYSTIMESTAMP,91.8,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (5,'DL-01-GH-4001','Volvo','FH16',2023,750,3550,44000,500,3,DATE '2027-08-10',DATE '2027-06-25',78450.6,'In Use',5,28.7041,77.1025,'/trucks/volvo.jpg',SYSTIMESTAMP,99.1,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (6,'WB-01-IJ-5001','Volvo','FH16',2022,750,3550,44000,500,3,DATE '2027-04-18',DATE '2027-02-14',134670.4,'In Use',6,22.5726,88.3639,'/trucks/volvo.jpg',SYSTIMESTAMP,95.3,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (7,'KA-01-AB-1003','Volvo','FH16',2024,750,3550,44000,500,3,DATE '2028-01-01',DATE '2027-10-15',12300.0,'Spare',2,12.9716,77.5946,'/trucks/volvo.jpg',SYSTIMESTAMP,100.0,SYSTIMESTAMP);
+
+-- 7 Scania R770 (6 operating, 1 spare in Bengaluru)
+INSERT INTO tractor VALUES (8,'KA-02-KL-1001','Scania','R770',2023,770,3700,44000,490,3,DATE '2027-05-20',DATE '2027-03-18',89340.7,'In Use',2,12.9716,77.5946,'/trucks/scania.jpg',SYSTIMESTAMP,97.4,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (9,'MH-02-MN-2001','Scania','R770',2022,770,3700,44000,490,3,DATE '2027-03-10',DATE '2027-01-05',145230.1,'In Use',3,19.0760,72.8777,'/trucks/scania.jpg',SYSTIMESTAMP,93.6,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (10,'TN-02-OP-3001','Scania','R770',2023,770,3700,44000,490,3,DATE '2027-07-15',DATE '2027-05-10',76540.9,'In Use',4,13.0827,80.2707,'/trucks/scania.jpg',SYSTIMESTAMP,98.2,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (11,'DL-02-QR-4001','Scania','R770',2021,770,3700,44000,490,3,DATE '2026-12-30',DATE '2026-10-25',189760.3,'In Use',5,28.7041,77.1025,'/trucks/scania.jpg',SYSTIMESTAMP,89.5,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (12,'WB-02-ST-5001','Scania','R770',2022,770,3700,44000,490,3,DATE '2027-04-25',DATE '2027-02-20',123450.6,'In Use',6,22.5726,88.3639,'/trucks/scania.jpg',SYSTIMESTAMP,95.8,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (13,'KA-02-KL-1002','Scania','R770',2023,770,3700,44000,490,3,DATE '2027-09-01',DATE '2027-07-15',67890.2,'In Use',1,12.9141,74.8560,'/trucks/scania.jpg',SYSTIMESTAMP,98.7,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (14,'KA-02-KL-1003','Scania','R770',2024,770,3700,44000,490,3,DATE '2028-02-15',DATE '2027-11-20',8900.0,'Spare',2,12.9716,77.5946,'/trucks/scania.jpg',SYSTIMESTAMP,100.0,SYSTIMESTAMP);
+
+-- 3 Mercedes-Benz Actros 4165 SLT (all operating)
+INSERT INTO tractor VALUES (15,'MH-03-UV-2001','Mercedes-Benz','Actros 4165 SLT',2022,625,3000,41000,480,3,DATE '2027-02-15',DATE '2026-12-10',156780.4,'In Use',3,19.0760,72.8777,'/trucks/merc_actross.jpg',SYSTIMESTAMP,92.1,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (16,'KA-03-WX-1001','Mercedes-Benz','Actros 4165 SLT',2023,625,3000,41000,480,3,DATE '2027-06-30',DATE '2027-04-25',87650.3,'In Use',2,12.9716,77.5946,'/trucks/merc_actross.jpg',SYSTIMESTAMP,97.8,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (17,'DL-03-YZ-4001','Mercedes-Benz','Actros 4165 SLT',2022,625,3000,41000,480,3,DATE '2027-01-20',DATE '2026-11-15',178900.7,'In Use',5,28.7041,77.1025,'/trucks/merc_actross.jpg',SYSTIMESTAMP,90.3,SYSTIMESTAMP);
+
+-- 4 DAF XG+ 660 (all 4 operating)
+INSERT INTO tractor VALUES (18,'TN-04-AA-3001','DAF','XG+ 660',2023,660,2950,40000,470,3,DATE '2027-08-05',DATE '2027-06-01',65430.8,'In Use',4,13.0827,80.2707,'/trucks/daf.jpg',SYSTIMESTAMP,99.0,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (19,'WB-04-BB-5001','DAF','XG+ 660',2022,660,2950,40000,470,3,DATE '2027-03-22',DATE '2027-01-17',134560.1,'In Use',6,22.5726,88.3639,'/trucks/daf.jpg',SYSTIMESTAMP,94.7,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (20,'MH-04-CC-2001','DAF','XG+ 660',2023,660,2950,40000,470,3,DATE '2027-07-10',DATE '2027-05-05',78900.5,'In Use',3,19.0760,72.8777,'/trucks/daf.jpg',SYSTIMESTAMP,98.3,SYSTIMESTAMP);
+INSERT INTO tractor VALUES (21,'KA-04-DD-1001','DAF','XG+ 660',2024,660,2950,40000,470,3,DATE '2027-11-15',DATE '2027-09-10',34560.2,'In Use',2,12.9716,77.5946,'/trucks/daf.jpg',SYSTIMESTAMP,99.5,SYSTIMESTAMP);
+
+-- ==================== 25 TRAILERS ====================
+-- 8 Flatbed (6 operating, 2 spare)
+INSERT INTO trailer VALUES (1,'TRL-FB-001','Flatbed','Ashok Leyland',2022,25000,85.00,13.60,'In Use',1,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (2,'TRL-FB-002','Flatbed','Ashok Leyland',2022,25000,85.00,13.60,'In Use',4,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (3,'TRL-FB-003','Flatbed','TATA',2023,24000,82.00,13.60,'In Use',5,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (4,'TRL-FB-004','Flatbed','TATA',2023,24000,82.00,13.60,'In Use',6,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (5,'TRL-FB-005','Flatbed','Ashok Leyland',2021,25000,85.00,13.60,'In Use',6,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (6,'TRL-FB-006','Flatbed','TATA',2022,24000,82.00,13.60,'In Use',2,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (7,'TRL-FB-007','Flatbed','Ashok Leyland',2023,25000,85.00,13.60,'Spare',2,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (8,'TRL-FB-008','Flatbed','TATA',2024,24000,82.00,13.60,'Spare',2,'/trailers/flatbed.jpg',SYSTIMESTAMP);
+
+-- 8 DRY Van (6 operating, 2 spare)
+INSERT INTO trailer VALUES (9,'TRL-DV-001','DRY Van','Mahindra',2022,22000,76.00,13.60,'In Use',4,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (10,'TRL-DV-002','DRY Van','Mahindra',2023,22000,76.00,13.60,'In Use',3,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (11,'TRL-DV-003','DRY Van','SML Isuzu',2022,21000,74.00,12.50,'In Use',2,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (12,'TRL-DV-004','DRY Van','SML Isuzu',2023,21000,74.00,12.50,'In Use',5,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (13,'TRL-DV-005','DRY Van','Mahindra',2022,22000,76.00,13.60,'In Use',2,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (14,'TRL-DV-006','DRY Van','SML Isuzu',2023,21000,74.00,12.50,'In Use',3,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (15,'TRL-DV-007','DRY Van','Mahindra',2024,22000,76.00,13.60,'Spare',2,'/trailers/dry.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (16,'TRL-DV-008','DRY Van','SML Isuzu',2024,21000,74.00,12.50,'Spare',3,'/trailers/dry.jpg',SYSTIMESTAMP);
+
+-- 3 Refrigerated (2 operating, 1 spare)
+INSERT INTO trailer VALUES (17,'TRL-RF-001','Refrigerated','Carrier Transicold',2023,18000,62.00,12.50,'In Use',2,'/trailers/refrigerated.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (18,'TRL-RF-002','Refrigerated','Carrier Transicold',2022,18000,62.00,12.50,'In Use',4,'/trailers/refrigerated.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (19,'TRL-RF-003','Refrigerated','Thermo King',2024,17500,60.00,12.50,'Spare',2,'/trailers/refrigerated.jpg',SYSTIMESTAMP);
+
+-- 3 Tank (2 operating, 1 spare)
+INSERT INTO trailer VALUES (20,'TRL-TK-001','Tank','Feldbinder',2022,30000,25.00,12.00,'In Use',1,'/trailers/tank.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (21,'TRL-TK-002','Tank','Feldbinder',2023,30000,25.00,12.00,'In Use',6,'/trailers/tank.jpg',SYSTIMESTAMP);
+INSERT INTO trailer VALUES (22,'TRL-TK-003','Tank','Feldbinder',2024,28000,24.00,12.00,'Spare',2,'/trailers/tank.jpg',SYSTIMESTAMP);
+
+-- 1 Low Boy
+INSERT INTO trailer VALUES (23,'TRL-LB-001','Low Boy','Goldhofer',2022,50000,NULL,16.00,'In Use',3,'/trailers/lowboy.jpg',SYSTIMESTAMP);
+
+-- 1 Car Hauler
+INSERT INTO trailer VALUES (24,'TRL-CH-001','Car Hauler','Lohr',2023,20000,NULL,20.50,'In Use',3,'/trailers/car_hauler.jpg',SYSTIMESTAMP);
+
+-- 1 Double
+INSERT INTO trailer VALUES (25,'TRL-DB-001','Double','Krone',2023,40000,150.00,25.25,'In Use',2,'/trailers/double.jpeg',SYSTIMESTAMP);
+
+COMMIT;
